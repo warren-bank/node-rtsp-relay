@@ -1,0 +1,30 @@
+{
+  "name": "@warren-bank/rtsp-relay",
+  "version": "1.0.0",
+  "description": "Node.js server to relay RTSP video stream from 'producer' to 'consumer' client endpoint.",
+  "license": "GPL-2.0",
+  "main": "lib/rtsp-streaming-server/index.js",
+  "bin": {
+    "rtsp-relay": "bin/rtsp-relay.js"
+  },
+  "scripts": {
+    "start": "node bin/rtsp-relay.js",
+    "debug": "node bin/rtsp-relay.js -L 4"
+  },
+  "dependencies": {
+    "@warren-bank/node-process-argv": "^1.1.0",
+    "basic-auth": "^2.0.1",
+    "debug": "^2.2.0",
+    "rtsp-server": "^1.2.2",
+    "uuid": "^3.3.3"
+  },
+  "author": {
+    "name":  "Warren R. Bank",
+    "email": "warren.r.bank@gmail.com",
+    "url":   "https://github.com/warren-bank"
+  },
+  "repository": {
+    "type": "git",
+    "url":  "https://github.com/warren-bank/node-rtsp-relay"
+  }
+}
