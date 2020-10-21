@@ -8,13 +8,11 @@ Node.js server to relay RTSP video stream from 'producer' to 'consumer' client e
   - of the display screen
   - from the camera/microphone
 * surprisingly, there are very few good options
-* of those:
-  - there are none that run a server to allow a client to directly connect and view the stream
-  - the only stream protocol they support is RTSP
-    * I'm no expert, but apparently:
-      - this protocol requires the app to connect (as a client) to an external media server
-      - the video stream is pushed to the server
-      - clients must connect to the server to view the stream
+* the only stream protocol they support is RTSP
+  - I'm no expert, but apparently:
+    * this protocol requires the app to connect (as a client) to an external media server
+    * the video stream is published to the server
+    * clients must then connect to this server, in order to subscribe to (and view) the video stream
 
 #### Attempted Workarounds:
 
@@ -47,6 +45,41 @@ Node.js server to relay RTSP video stream from 'producer' to 'consumer' client e
       - rebased to [`v1.0.2`](https://github.com/chriswiggins/rtsp-streaming-server/tree/2df32fbba478f23ce74fd70c927d7ddcddb4557f)
       - manually merged subsequent updates
   - added a CLI
+* limitations (inherited from [rtsp-streaming-server](https://github.com/chriswiggins/rtsp-streaming-server) library)
+  - doesn't support RTP/RTSP/TCP
+    * which is:
+      - a strategy to interleave the RTP packets into the (TCP) RTSP stream, rather than allocating 2x additional (UDP) RTP and RTCP ports per stream
+    * for example:
+      - SETUP request from 'producer':
+        ```text
+          SETUP rtsp://192.168.0.100:5554/screen/streamid=0 RTSP/1.0
+          Transport: RTP/AVP/TCP;unicast;interleaved=0-1;mode=record
+          User-Agent: Larix/1.0.29
+        ```
+      - response:
+        ```text
+          501 Not implemented
+        ```
+* status:
+  - Android 'producer' apps/libraries that have been successfully tested with `rtsp-relay`
+    * `libstreaming`
+      - library
+        * [official source code repo](https://github.com/fyhertz/libstreaming)
+      - demo app: `example3`
+        * [official source code repo](https://github.com/fyhertz/libstreaming-examples)
+        * [unofficial source code repo w/ Android Studio project](https://github.com/warren-bank/Android-libraries/tree/fyhertz/libstreaming-examples)
+        * [unofficial prebuilt apks](https://github.com/warren-bank/Android-libraries/releases/tag/fyhertz%2Flibstreaming-examples%2Fv01.00.00) (signed by me)
+  - Android 'consumer' apps/libraries that have been successfully tested with `rtsp-relay`
+    * `ExoPlayer` pull request [3854](https://github.com/google/ExoPlayer/pull/3854)
+      - library
+        * [unofficial source code development branch](https://github.com/tresvecesseis/ExoPlayer/tree/dev-v2-rtsp)
+      - demo app: `RTSP IPCam Viewer`
+        * [source code repo](https://github.com/warren-bank/Android-RTSP-IPCam-Viewer)
+        * [prebuilt apks](https://github.com/warren-bank/Android-RTSP-IPCam-Viewer/releases) (signed by me)
+  - cross-platform 'consumer' apps/libraries that have been successfully tested with `rtsp-relay`
+    * [`VLC`](https://www.videolan.org/vlc/)
+      - app
+        * [official source code repo](https://github.com/videolan/vlc)
 
 #### Installation:
 
@@ -75,11 +108,11 @@ options:
 
 "-pu" <username>
 "--producer-username" <username>
-    [optional] If 'producer' requires authentication, provide 'username'.
+    [optional] Authenticate connections to 'producer' port with secret 'username'.
 
 "-pp" <password>
 "--producer-password" <password>
-    [optional] If 'producer' requires authentication, provide 'password'.
+    [optional] Authenticate connections to 'producer' port with secret 'password'.
 
 "-cport" <integer>
 "--client-port" <integer>
@@ -90,12 +123,12 @@ options:
 "-cu" <username>
 "--client-username" <username>
 "--consumer-username" <username>
-    [optional] Authenticate 'consumer' with secret 'username'.
+    [optional] Authenticate connections to 'consumer' port with secret 'username'.
 
 "-cp" <password>
 "--client-password" <password>
 "--consumer-password" <password>
-    [optional] Authenticate 'consumer' with secret 'password'.
+    [optional] Authenticate connections to 'consumer' port with secret 'password'.
 
 "-rlp" <integer>
 "--rtp-low-port" <integer>

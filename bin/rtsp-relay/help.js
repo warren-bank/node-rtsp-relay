@@ -17,11 +17,11 @@ options:
 
 "-pu" <username>
 "--producer-username" <username>
-    [optional] If 'producer' requires authentication, provide 'username'.
+    [optional] Authenticate connections to 'producer' port with secret 'username'.
 
 "-pp" <password>
 "--producer-password" <password>
-    [optional] If 'producer' requires authentication, provide 'password'.
+    [optional] Authenticate connections to 'producer' port with secret 'password'.
 
 "-cport" <integer>
 "--client-port" <integer>
@@ -32,12 +32,12 @@ options:
 "-cu" <username>
 "--client-username" <username>
 "--consumer-username" <username>
-    [optional] Authenticate 'consumer' with secret 'username'.
+    [optional] Authenticate connections to 'consumer' port with secret 'username'.
 
 "-cp" <password>
 "--client-password" <password>
 "--consumer-password" <password>
-    [optional] Authenticate 'consumer' with secret 'password'.
+    [optional] Authenticate connections to 'consumer' port with secret 'password'.
 
 "-rlp" <integer>
 "--rtp-low-port" <integer>
