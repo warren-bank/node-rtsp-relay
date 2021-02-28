@@ -1,0 +1,7 @@
+{
+  "name": "tests",
+  "private": true,
+  "dependencies": {
+    "@warren-bank/rtsp-relay": "file:../"
+  }
+}
