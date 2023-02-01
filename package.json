@@ -1,6 +1,6 @@
 {
   "name": "@warren-bank/rtsp-relay",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Node.js server to relay RTSP video stream from 'producer' to 'consumer' client endpoint.",
   "license": "GPL-2.0",
   "main": "lib/rtsp-streaming-server/index.js",

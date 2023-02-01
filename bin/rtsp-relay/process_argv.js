@@ -78,8 +78,8 @@ const argv_set_default_positive_integer = (key, val) => argv_set_default_integer
 
 argv_set_default_positive_integer("--producer-port",  5554)
 argv_set_default_positive_integer("--consumer-port",  6554)
-argv_set_default_positive_integer("--rtp-low-port",   1000)
-argv_set_default_positive_integer("--rtp-high-port", (1000 + argv_vals["--rtp-low-port"]))
+argv_set_default_positive_integer("--rtp-low-port",   10000)
+argv_set_default_positive_integer("--rtp-high-port", (10000 + argv_vals["--rtp-low-port"]))
 
 argv_set_default_integer("--log-level", 1, -1)
 
